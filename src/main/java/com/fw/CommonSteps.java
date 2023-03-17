@@ -1,12 +1,14 @@
 package com.fw;
 
+import io.cucumber.java.Before;
+import io.cucumber.java.BeforeAll;
+import io.cucumber.java.Scenario;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class CommonSteps {
-    private static Logger log = LoggerFactory.getLogger(CommonSteps.class);
+    private static Scenario sc1;
+
     public CommonSteps(){
 
     }
@@ -30,8 +32,18 @@ public class CommonSteps {
     }
 
     @Given("I should be able to connect to Mongo DB")
-    public void iShouldBeAbleToConnectToDB_Mongo() {
-        System.out.println("iShouldBeAbleToConnectToDB_Mongo");
+    public void iShouldBeAbleToConnectToDB_Mongo() throws InterruptedException {
 
+        for (int i=0;i<2;i++){
+            Thread.sleep(1000);
+            System.out.println("iShouldBeAbleToConnectToDB_Mongo:->i"+i+", Thread:"+Thread.currentThread().getName());
+            sc1.log("iShouldBeAbleToConnectToDB_Mongo:->i"+i+", Thread:"+Thread.currentThread().getName());
+        }
+
+    }
+
+    @Before
+    public  void before_or_after_all(Scenario sc){
+        this.sc1=sc;
     }
 }
